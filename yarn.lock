@@ -577,10 +577,10 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-fauna@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/fauna/-/fauna-0.6.2.tgz#f2c2728377d7d6caa1a8843dd0d92ea9b7a471b2"
-  integrity sha512-H8nlLnHHOm6qRBBmAr9LSLQ9n7cI8ULVeyPmfeIEEm3nVJ9SKgKRYnKeGm1djhp5PsSjDLzPErC24Dz2FeJHxw==
+fauna@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/fauna/-/fauna-0.9.0.tgz#3f0cbb85433a9f7c6a5acca0df3ceda8e8c0b1a8"
+  integrity sha512-Mut7MiGTbUyG4lzdp+S/jnqOgB9JM1pRAP+urWCC3+9TwrqV9z8s4Xx9jEKqYAYNt77N0swKWKakuVgFAFPjuA==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
