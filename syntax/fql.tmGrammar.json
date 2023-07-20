@@ -72,7 +72,7 @@
       }
     },
     {
-      "comment": "Native collections",
+      "comment": "Standard library modules",
       "name": "entity.name.type.class.std.fql",
       "match": "\\b(Collection|Function|Role|AccessProvider|Database|Key|Credential|Token|Array|Boolean|Date|Math|Null|Number|Int|Long|Double|Float|Object|Set|SetCursor|Struct|Time|TransactionTime|Query)\\b"
     },
