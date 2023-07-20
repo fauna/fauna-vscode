@@ -1,14 +1,20 @@
+import * as axios from 'axios';
 import * as path from "path";
 import * as vscode from "vscode";
 import { LanguageClient, LanguageClientOptions, RevealOutputChannelOn, ServerOptions, TransportKind } from "vscode-languageclient/node";
 import { ConfigurationChangeSubscription, FQLConfiguration, FQLConfigurationManager } from "./FQLConfigurationManager";
 
-export class LanguageClientManager implements ConfigurationChangeSubscription {
+const serverDownloadUrl = "https://static-assets.fauna.com/fql-analyzer/index.js";
+export class LanguageService implements ConfigurationChangeSubscription {
   client: LanguageClient;
   outputChannel: vscode.OutputChannel;
+  context: vscode.ExtensionContext;
+  serverLocation: vscode.Uri;
 
   constructor(context: vscode.ExtensionContext, outputChannel: vscode.OutputChannel) {
     this.outputChannel = outputChannel;
+    this.context = context;
+    this.serverLocation = vscode.Uri.joinPath(this.context.globalStorageUri, `fql-analyzer.js`);
 
     // The server is implemented in node
     const serverModule = context.asAbsolutePath(
@@ -31,7 +37,7 @@ export class LanguageClientManager implements ConfigurationChangeSubscription {
     // Otherwise the run options are used
     const serverOptions: ServerOptions = {
       run: {
-        module: serverModule,
+        module: this.serverLocation.path,
         transport: TransportKind.ipc,
       },
       debug: {
@@ -59,6 +65,23 @@ export class LanguageClientManager implements ConfigurationChangeSubscription {
 
     // Create the language client and start the client.
     this.client = new LanguageClient("fql", "FQL", serverOptions, clientOptions);
+  }
+
+  async start() {
+    let exists = await vscode.workspace.fs.stat(this.serverLocation).then(
+      () => true,
+      () => false,
+    );
+
+    // todo: going to want to resfresh this at some point
+    // https://faunadb.atlassian.net/browse/ENG-5306
+    if (!exists) {
+      await vscode.workspace.fs.createDirectory(this.context.globalStorageUri);
+      const response = await axios.default.get(serverDownloadUrl, { responseType: 'arraybuffer' });
+      await vscode.workspace.fs.writeFile(this.serverLocation, response.data);
+    }
+
+    await this.client.start();
   }
 
   async configChanged(updatedConfiguration: FQLConfiguration) {
