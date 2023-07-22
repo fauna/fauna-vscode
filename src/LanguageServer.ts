@@ -54,6 +54,10 @@ export class LanguageService implements ConfigurationChangeSubscription {
           scheme: "file",
           language: "fql",
         },
+        {
+          scheme: "untitled",
+          language: "fql",
+        },
       ],
       synchronize: {
         // Notify the server about file changes to '.clientrc files contained in the workspace
