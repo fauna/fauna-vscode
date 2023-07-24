@@ -6,15 +6,20 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    services:
+      core:
+        image: fauna/faunadb:latest
+        ports:
+          - 8443:8443
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-    - run: yarn install
-    - run: xvfb-run -a yarn test
-      if: runner.os == 'Linux'
-    - run: yarn test
-      if: runner.os != 'Linux'
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: yarn install
+      - run: xvfb-run -a yarn test
+        if: runner.os == 'Linux'
+      - run: yarn test
+        if: runner.os != 'Linux'
