@@ -6,11 +6,6 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    services:
-      core:
-        image: fauna/faunadb:latest
-        ports:
-          - 8443:8443
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,6 +15,10 @@ jobs:
           node-version: 16.x
       - run: yarn install
       - run: xvfb-run -a yarn test
+        env:
+          VSCODE_DB_SECRET: ${{ secrets.VSCODE_DB_SECRET }}
         if: runner.os == 'Linux'
       - run: yarn test
+        env:
+          VSCODE_DB_SECRET: ${{ secrets.VSCODE_DB_SECRET }}
         if: runner.os != 'Linux'

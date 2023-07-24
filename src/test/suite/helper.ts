@@ -22,10 +22,25 @@ export async function sleep(ms: number) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+export function getClient(): Client {
+  if (process.env.VSCODE_DB_SECRET) {
+    return getDevDB(process.env.VSCODE_DB_SECRET);
+  } else {
+    return getLocalClient();
+  }
+}
+
 export function getLocalClient(): Client {
   return new Client({
     endpoint: endpoints.local,
     secret: "secret",
+  });
+}
+
+export function getDevDB(secret: string): Client {
+  return new Client({
+    endpoint: new URL("https://db.dev.faunadb.net"),
+    secret: secret
   });
 }
 
@@ -35,7 +50,7 @@ export function getLocalClient(): Client {
  * extension with.
  */
 export const clientWithFreshDB = async (name: string): Promise<[Client, string]> => {
-  const parentClient = getLocalClient();
+  const parentClient = getClient();
   const secretQ = await parentClient.query<string>(fql`
     if (Database.byName(${name}).exists()) {
       Key.where(.database == ${name}).forEach(.delete())
