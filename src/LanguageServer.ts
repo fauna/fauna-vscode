@@ -1,11 +1,11 @@
-import * as axios from 'axios';
+import * as https from "https";
 import * as path from "path";
 import * as vscode from "vscode";
 import { LanguageClient, LanguageClientOptions, RevealOutputChannelOn, ServerOptions, TransportKind } from "vscode-languageclient/node";
 import { ConfigurationChangeSubscription, FQLConfiguration, FQLConfigurationManager } from "./FQLConfigurationManager";
 
-const serverDownloadUrl = "https://static-assets.fauna.com/fql-analyzer/index.js";
 export class LanguageService implements ConfigurationChangeSubscription {
+  static readonly serverDownloadUrl = "https://static-assets.fauna.com/fql-analyzer/index.js";
   client: LanguageClient;
   outputChannel: vscode.OutputChannel;
   context: vscode.ExtensionContext;
@@ -81,8 +81,8 @@ export class LanguageService implements ConfigurationChangeSubscription {
     // https://faunadb.atlassian.net/browse/ENG-5306
     if (!exists) {
       await vscode.workspace.fs.createDirectory(this.context.globalStorageUri);
-      const response = await axios.default.get(serverDownloadUrl, { responseType: 'arraybuffer' });
-      await vscode.workspace.fs.writeFile(this.serverLocation, response.data);
+      const responseData = await this.downloadServer();
+      await vscode.workspace.fs.writeFile(this.serverLocation, responseData);
     }
 
     await this.client.start();
@@ -94,5 +94,28 @@ export class LanguageService implements ConfigurationChangeSubscription {
     if (resp.status === "error") {
       FQLConfigurationManager.config_error_dialogue(resp.message);
     }
+  }
+
+  async downloadServer(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      https.get(LanguageService.serverDownloadUrl, res => {
+        const data: any[] = [];
+        res.on('data', chunk => {
+          data.push(chunk);
+        });
+        res.on('end', () => {
+          const allData = Buffer.concat(data);
+          if (res.statusCode === 200) {
+            resolve(allData);
+          } else {
+            console.error(`Error downloading Language Server: ${res.statusCode} ${allData}`);
+            reject(new Error(`Error downloading Language Server: ${res.statusCode}`));
+          }
+        });
+      }).on('error', (e) => {
+        console.error(`Error downloading the Language Server: ${e}`);
+        reject(new Error("Error downloading the Language Server", { cause: e }));
+      });
+    });
   }
 }
