@@ -89,7 +89,7 @@ export class LanguageService implements ConfigurationChangeSubscription {
   }
 
   async configChanged(updatedConfiguration: FQLConfiguration) {
-    const resp = await this.client.sendRequest("setFaunaSecret", { secret: updatedConfiguration.dbSecret }) as any;
+    const resp = await this.client.sendRequest("setFaunaConfig", { endpoint: updatedConfiguration.endpoint, secret: updatedConfiguration.dbSecret }) as any;
     this.outputChannel.clear();
     if (resp.status === "error") {
       FQLConfigurationManager.config_error_dialogue(resp.message);

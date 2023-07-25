@@ -19,6 +19,9 @@ suite("Extension Test Suite", () => {
   setup(async () => {
     [fqlClient, secret] = await testHelper.clientWithFreshDB("VSCodeTest");
     await setConfigSecret(secret);
+    if (fqlClient.clientConfiguration.endpoint) {
+      await setConfigEndpoint(fqlClient.clientConfiguration.endpoint.href);
+    }
   });
   test("should test completion items", async () => {
     await fqlClient.query(fql`Collection.create({ name: "Cats" })`);
@@ -43,6 +46,11 @@ suite("Extension Test Suite", () => {
   async function setConfigSecret(secret: string): Promise<void> {
     const config = vscode.workspace.getConfiguration(FQLConfigurationManager.FAUNA_CONFIG_PATH);
     await config.update(FQLConfigurationManager.SECRET_CONFIG_FIELD, secret, vscode.ConfigurationTarget.Global);
+  }
+
+  async function setConfigEndpoint(endpoint: string): Promise<void> {
+    const config = vscode.workspace.getConfiguration(FQLConfigurationManager.FAUNA_CONFIG_PATH);
+    await config.update(FQLConfigurationManager.ENDPOINT_CONFIG_FIELD, endpoint, vscode.ConfigurationTarget.Global);
   }
 
   function containsCollectionCompletionItem(completionItems: vscode.CompletionList, collectionName: string) {
