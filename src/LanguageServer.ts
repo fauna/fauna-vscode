@@ -37,7 +37,7 @@ export class LanguageService implements ConfigurationChangeSubscription {
     // Otherwise the run options are used
     const serverOptions: ServerOptions = {
       run: {
-        module: this.serverLocation.path,
+        module: this.serverLocation.fsPath,
         transport: TransportKind.ipc,
       },
       debug: {
