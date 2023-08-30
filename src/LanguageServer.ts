@@ -111,7 +111,7 @@ export class LanguageService implements ConfigurationChangeSubscription {
   }
 
   async configChanged(updatedConfiguration: FQLConfiguration) {
-    const resp = (await this.client.sendRequest("setFaunaConfig", {
+    const resp = (await this.client.sendRequest("fauna/setConfig", {
       endpoint: updatedConfiguration.endpoint,
       secret: updatedConfiguration.dbSecret,
     })) as any;
