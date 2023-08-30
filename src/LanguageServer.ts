@@ -121,6 +121,15 @@ export class LanguageService implements ConfigurationChangeSubscription {
     }
   }
 
+  async refresh(version: string) {
+    const resp = (await this.client.sendRequest("fauna/refresh", {
+      schema_version: version,
+    })) as any;
+    if (resp.status === "error") {
+      FQLConfigurationManager.config_error_dialogue(resp.message);
+    }
+  }
+
   async downloadServer(): Promise<any> {
     return new Promise((resolve, reject) => {
       https
