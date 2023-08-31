@@ -2,7 +2,7 @@
 
 This is the FQL extension for VS Code. It allows users to craft and run FQL queries against their database from the FQL Playground. This plugin provides intellisense with autocompletions tailored to your databaase when writing queries within the playground or any other .fql file.
 
-To get started, simply configure the extension with your secret and press `cmd+l` (Mac) or `ctrl+l` (Linux/Windows) to open the FQL Playground!
+To get started, simply configure the extension with your secret and press `cmd+l` (Mac) or `ctrl+l` (Linux/Windows) to open the FQL Playground! You can also use the VSCode command palette, `FQL: Toggle Playground`.
 
 ## Configuration
 
@@ -16,6 +16,6 @@ To start writing and running FQL queries open the FQL Playground (`cmd+l` on Mac
 
 This command will toggle the playground, so if not active, it will open, and then when pressed again the playground will close. It will automatically save the content when the command is used to close it. Intellisense will automatically be present as you begin typing queries into the playground.
 
-To execute a query in the playground, use the `Run Query` button in the top right or just press `cmd+enter` (Mac) or `ctrl+enter` Linx/Windows.
+To execute a query in the playground, use the `Run Query` button in the top right or press `cmd+enter` (Mac) or `ctrl+enter` Linx/Windows.
 
 You can get all of the same functionality in `.fql` files that you open and save. This allows you to have any number of queries saved in your project that you can open and run.

@@ -10,7 +10,7 @@ yarn compile
 
 This will install dependencies, and compile the typescript code.
 
-Finally, open vscode in this directory, and hit F5 to run a new version of
+Open vscode in this directory, and hit F5 to run a new version of
 vscode, which will have this plugin running.
 
 Now in this new instance of vscode, press cmd+l/ctrl+l to open the FQL Playground.
