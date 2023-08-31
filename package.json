@@ -74,6 +74,18 @@
         "title": "FQL: Run Query"
       },
       {
+        "command": "fql.runQueryAsRole",
+        "title": "FQL: Run Query as Role"
+      },
+      {
+        "command": "fql.runQueryAsDoc",
+        "title": "FQL: Run Query as Document"
+      },
+      {
+        "command": "fql.runQueryWithSecret",
+        "title": "FQL: Run Query with Secret"
+      },
+      {
         "command": "fql.togglePlayground",
         "title": "FQL: Toggle Playground"
       }
