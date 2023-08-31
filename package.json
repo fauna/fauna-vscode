@@ -16,7 +16,7 @@
   ],
   "main": "./out/extension.js",
   "dependencies": {
-    "fauna": "^0.9.0",
+    "fauna": "^1.1.0",
     "vscode-languageclient": "^8.0.2"
   },
   "devDependencies": {
