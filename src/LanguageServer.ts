@@ -126,7 +126,9 @@ export class LanguageService implements ConfigurationChangeSubscription {
       schema_version: version,
     })) as any;
     if (resp.status === "error") {
-      FQLConfigurationManager.config_error_dialogue(resp.message);
+      vscode.window.showErrorMessage(
+        `Failed to refresh environment: ${resp.message}`,
+      );
     }
   }
 
