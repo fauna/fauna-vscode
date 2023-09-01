@@ -106,7 +106,6 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
     this.outputChannel.clear();
     this.outputChannel.show(true); // don't move the cursor off the text editor
     try {
-      console.log(this.fqlClient.clientConfiguration.secret);
       var response = await this.fqlClient.query(fql([query]), {
         format: "decorated",
         typecheck: true,
