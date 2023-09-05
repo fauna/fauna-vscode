@@ -19,3 +19,7 @@ This command will toggle the playground, so if not active, it will open, and the
 To execute a query in the playground, use the `Run Query` button in the top right or press `cmd+enter` (Mac) or `ctrl+enter` Linx/Windows.
 
 You can get all of the same functionality in `.fql` files that you open and save. This allows you to have any number of queries saved in your project that you can open and run.
+
+## Run As Role
+
+Running as role is currently available but only from the command palette. Look for `FQL: Run Query As Role`. This will open up a quick pick section with your available roles to run from.

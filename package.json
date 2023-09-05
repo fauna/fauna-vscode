@@ -2,6 +2,7 @@
   "name": "fql",
   "displayName": "fql",
   "description": "FQL language support",
+  "icon": "icons/fauna-extension-logo.png",
   "publisher": "Fauna",
   "version": "0.0.1",
   "engines": {
@@ -65,7 +66,8 @@
         "fauna.endpoint": {
           "type": "string",
           "default": "https://db.fauna.com",
-          "description": "The fauna endpoint url to use. This should typically be 'https://db.fauna.com'."
+          "description": "The fauna endpoint url to use. This should typically be 'https://db.fauna.com'.",
+          "scope": "window"
         }
       }
     },
