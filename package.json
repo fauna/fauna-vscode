@@ -1,6 +1,6 @@
 {
   "name": "fql",
-  "displayName": "fql",
+  "displayName": "Fauna",
   "description": "FQL language support",
   "icon": "icons/fauna-extension-logo.png",
   "publisher": "Fauna",
@@ -48,7 +48,7 @@
   "contributes": {
     "menus": {
       "editor/title": [{
-        "command": "fql.runQuery",
+        "command": "fauna.runQuery",
         "group": "navigation@0",
         "when": "resourceLangId == fql"
       }]
@@ -73,24 +73,24 @@
     },
     "commands": [
       {
-        "command": "fql.runQuery",
-        "title": "FQL: Run Query"
+        "command": "fauna.runQuery",
+        "title": "Fauna: Run Query"
       },
       {
-        "command": "fql.runQueryAsRole",
-        "title": "FQL: Run Query as Role"
+        "command": "fauna.runQueryAsRole",
+        "title": "Fauna: Run Query as Role"
       },
       {
-        "command": "fql.runQueryAsDoc",
-        "title": "FQL: Run Query as Document"
+        "command": "fauna.runQueryAsDoc",
+        "title": "Fauna: Run Query as Document"
       },
       {
-        "command": "fql.runQueryWithSecret",
-        "title": "FQL: Run Query with Secret"
+        "command": "fauna.runQueryWithSecret",
+        "title": "Fauna: Run Query with Secret"
       },
       {
-        "command": "fql.togglePlayground",
-        "title": "FQL: Toggle Playground"
+        "command": "fauna.togglePlayground",
+        "title": "Fauna: Toggle Playground"
       }
     ],
     "languages": [
@@ -114,13 +114,13 @@
     ],
     "keybindings": [
       {
-        "command": "fql.runQuery",
+        "command": "fauna.runQuery",
         "key": "ctrl+enter",
         "mac": "cmd+enter",
         "when": "editorTextFocus && editorLangId == fql"
       },
       {
-        "command": "fql.togglePlayground",
+        "command": "fauna.togglePlayground",
         "key": "ctrl+l",
         "mac": "cmd+l"
       }

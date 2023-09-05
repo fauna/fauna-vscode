@@ -1,8 +1,8 @@
 # FQL VSCode
 
-This is the FQL extension for VS Code. It allows users to craft and run FQL queries against their database from the FQL Playground. This plugin provides intellisense with autocompletions tailored to your databaase when writing queries within the playground or any other .fql file.
+This is the Fauna extension for VS Code. It allows users to write and run FQL queries against their database from the FQL Playground. This plugin provides intellisense with autocompletions tailored to your database when writing queries within the playground or any other .fql file.
 
-To get started, simply configure the extension with your secret and press `cmd+l` (Mac) or `ctrl+l` (Linux/Windows) to open the FQL Playground! You can also use the VSCode command palette, `FQL: Toggle Playground`.
+To get started, simply configure the extension with your secret and press `cmd+l` (Mac) or `ctrl+l` (Linux/Windows) to open the FQL Playground! You can also use the VSCode command palette, `Fauna: Toggle Playground`.
 
 ## Configuration
 
@@ -12,9 +12,9 @@ This can be configured globally across all VS Code instances, as well as at the 
 
 ## Running FQL Queries
 
-To start writing and running FQL queries open the FQL Playground (`cmd+l` on Mac, `ctrl+l` on Linux/Windows) or `FQL: Toggle Playground` from the VS Code command palette.
+To start writing and running FQL queries open the FQL Playground (`cmd+l` on Mac, `ctrl+l` on Linux/Windows) or `Fauna: Toggle Playground` from the VS Code command palette.
 
-This command will toggle the playground, so if not active, it will open, and then when pressed again the playground will close. It will automatically save the content when the command is used to close it. Intellisense will automatically be present as you begin typing queries into the playground.
+This command will toggle the playground, so if not active, it will open, and then when pressed again the playground will close. It will automatically save the content when the command is used to close it. Intellisense will be present as you begin typing queries into the playground.
 
 To execute a query in the playground, use the `Run Query` button in the top right or press `cmd+enter` (Mac) or `ctrl+enter` Linx/Windows.
 
@@ -22,4 +22,4 @@ You can get all of the same functionality in `.fql` files that you open and save
 
 ## Run As Role
 
-Running as role is currently available but only from the command palette. Look for `FQL: Run Query As Role`. This will open up a quick pick section with your available roles to run from.
+Running as role is currently available but only from the command palette. Look for `Fauna: Run Query As Role`. This will open up a quick pick section with your available roles to run from.
