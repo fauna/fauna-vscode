@@ -12,7 +12,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:fql.helloWorld",
+    "onCommand:fauna.runQuery",
+    "onCommand:fauna.runQueryAsDoc",
+    "onCommand:fauna.runQueryAsRole",
+    "onCommand:fauna.runQueryWithSecret",
+    "onCommand:fauna.togglePlayground",
     "onLanguage:fql"
   ],
   "main": "./out/extension.js",
