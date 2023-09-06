@@ -34,10 +34,9 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
       registerCommand("fauna.runQuery", () => this.runQuery()),
       registerCommand("fauna.runQueryAsRole", () => this.runQueryAsRole()),
       registerCommand("fauna.runQueryAsDoc", () => this.runQueryAsDoc()),
-      // TODO
-      /*
-      registerCommand("fauna.runQueryWithSecret", () => this.runQueryWithSecret()),
-      */
+      registerCommand("fauna.runQueryWithSecret", () =>
+        this.runQueryWithSecret(),
+      ),
     ];
   }
 
@@ -100,7 +99,15 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
     this.execute({ doc });
   }
 
-  async execute(scope?: { role?: string; doc?: string }) {
+  async runQueryWithSecret() {
+    const secret = await vscode.window.showInputBox({
+      prompt: "Enter a secret key",
+    });
+
+    this.execute({ secret });
+  }
+
+  async execute(scope?: { secret?: string; role?: string; doc?: string }) {
     const { activeTextEditor } = vscode.window;
 
     if (!activeTextEditor || activeTextEditor.document.languageId !== "fql") {
@@ -118,9 +125,10 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
       var response = await this.fqlClient.query(fql([query]), {
         format: "decorated",
         typecheck: true,
-        secret: `${this.fqlClient.clientConfiguration.secret}${
-          scope ? ":" + secretForScope(scope) : ""
-        }`,
+        secret: secretForScope(
+          this.fqlClient.clientConfiguration.secret ?? "",
+          scope ?? {},
+        ),
       });
 
       if (response.static_type !== undefined) {
@@ -149,18 +157,27 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
   }
 }
 
-const secretForScope = ({
-  role,
-  doc,
-}: {
-  role?: string;
-  doc?: string;
-}): string => {
+const secretForScope = (
+  root: string,
+  {
+    secret,
+    role,
+    doc,
+  }: {
+    secret?: string;
+    role?: string;
+    doc?: string;
+  },
+): string => {
   if (role === "admin" || role === "server") {
-    return role;
+    return `${root}:${role}`;
   } else if (role !== undefined) {
-    return `@role/${role}`;
+    return `${root}:@role/${role}`;
+  } else if (doc !== undefined) {
+    return `${root}:@doc/${doc}`;
+  } else if (secret !== undefined) {
+    return secret;
   } else {
-    return `@doc/${doc}`;
+    return root;
   }
 };
