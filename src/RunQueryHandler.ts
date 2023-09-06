@@ -33,16 +33,16 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
     return [
       registerCommand("fauna.runQuery", () => this.runQuery()),
       registerCommand("fauna.runQueryAsRole", () => this.runQueryAsRole()),
+      registerCommand("fauna.runQueryAsDoc", () => this.runQueryAsDoc()),
       // TODO
       /*
-      registerCommand("fauna.runQueryAsDoc", () => this.runQueryAsDoc()),
       registerCommand("fauna.runQueryWithSecret", () => this.runQueryWithSecret()),
       */
     ];
   }
 
   async runQuery() {
-    await this.execute({});
+    await this.execute();
   }
 
   async runQueryAsRole() {
@@ -91,7 +91,16 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
     quickPick.show();
   }
 
-  async execute({ role }: { role?: string }) {
+  async runQueryAsDoc() {
+    const doc = await vscode.window.showInputBox({
+      prompt: "Enter a document in the format 'collectionName/documentId'",
+      placeHolder: "User/1234",
+    });
+
+    this.execute({ doc });
+  }
+
+  async execute(scope?: { role?: string; doc?: string }) {
     const { activeTextEditor } = vscode.window;
 
     if (!activeTextEditor || activeTextEditor.document.languageId !== "fql") {
@@ -110,7 +119,7 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
         format: "decorated",
         typecheck: true,
         secret: `${this.fqlClient.clientConfiguration.secret}${
-          role ? ":" + roleSecret(role) : ""
+          scope ? ":" + secretForScope(scope) : ""
         }`,
       });
 
@@ -140,10 +149,18 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
   }
 }
 
-const roleSecret = (role: string): string => {
+const secretForScope = ({
+  role,
+  doc,
+}: {
+  role?: string;
+  doc?: string;
+}): string => {
   if (role === "admin" || role === "server") {
     return role;
-  } else {
+  } else if (role !== undefined) {
     return `@role/${role}`;
+  } else {
+    return `@doc/${doc}`;
   }
 };
