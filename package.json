@@ -20,6 +20,7 @@
   ],
   "main": "./out/extension.js",
   "dependencies": {
+    "cross-fetch": "^4.0.0",
     "vscode-languageclient": "^8.0.2"
   },
   "devDependencies": {
