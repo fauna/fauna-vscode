@@ -152,8 +152,8 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
 
       this.outputChannel.appendLine(response.data as any);
 
-      if ((response as any).schema_version !== undefined) {
-        await this.languageService.refresh((response as any).schema_version);
+      if (response.schema_version !== undefined) {
+        await this.languageService.refresh(response.schema_version);
       }
     } catch (e) {
       if (e instanceof FaunaError) {
