@@ -48,6 +48,7 @@ export class Client {
       method: "POST",
       headers: {
         authorization: `Bearer ${secret ?? this.secret}`,
+        "x-fauna-source": "vscode-v10",
         "x-last-txn-ts": this.last_txn_time.toString(),
         ...(typecheck !== undefined && { "x-typecheck": typecheck.toString() }),
         ...(format !== undefined && { "x-format": format }),
