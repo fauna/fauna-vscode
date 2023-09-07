@@ -30,12 +30,20 @@ export class RunQueryHandler implements ConfigurationChangeSubscription {
 
   disposables() {
     const registerCommand = vscode.commands.registerCommand;
+    // Passing `this.runQuery` directly wont work, so we need these arrow functions.
     return [
-      registerCommand("fauna.runQuery", () => this.runQuery()),
-      registerCommand("fauna.runQueryAsRole", () => this.runQueryAsRole()),
-      registerCommand("fauna.runQueryAsDoc", () => this.runQueryAsDoc()),
-      registerCommand("fauna.runQueryWithSecret", () =>
-        this.runQueryWithSecret(),
+      registerCommand("fauna.runQuery", async () => await this.runQuery()),
+      registerCommand(
+        "fauna.runQueryAsRole",
+        async () => await this.runQueryAsRole(),
+      ),
+      registerCommand(
+        "fauna.runQueryAsDoc",
+        async () => await this.runQueryAsDoc(),
+      ),
+      registerCommand(
+        "fauna.runQueryWithSecret",
+        async () => await this.runQueryWithSecret(),
       ),
     ];
   }
