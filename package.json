@@ -41,6 +41,7 @@
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
+    "developer-setup": "yarn install && yarn compile && yarn download-analyzer",
     "download-analyzer": "bash ./scripts/download-analyzer.sh",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint && yarn run download-analyzer",
@@ -65,7 +66,7 @@
         "fauna.dbSecret": {
           "type": "string",
           "default": "",
-          "description": "The secret to use to connnect to your fauna database.",
+          "description": "The secret used to connect to your fauna database.",
           "scope": "window"
         },
         "fauna.endpoint": {
