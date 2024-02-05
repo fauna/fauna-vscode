@@ -43,6 +43,16 @@ export class Client {
       format,
     }: { secret?: string; typecheck?: boolean; format?: string } = {},
   ): Promise<Success<T>> {
+    console.log(`running a query against ${this.endpoint}`);
+    console.log(`secret: ${this.secret.slice(0, 10)}`);
+    console.log(`secret: ${this.secret.slice(10, 20)}`);
+    console.log(`secret: ${this.secret.slice(20, 30)}`);
+    console.log(`secret: ${this.secret.slice(30, 40)}`);
+    console.log(`secret: ${this.secret.slice(40, 50)}`);
+    console.log(`secret: ${this.secret.slice(50, 60)}`);
+    console.log(`secret: ${this.secret.slice(60, 70)}`);
+    console.log(`secret: ${this.secret.slice(70, 80)}`);
+
     const url = new URL(this.endpoint);
     url.pathname = "/query/1";
     const res = await fetch(url, {

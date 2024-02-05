@@ -48,6 +48,7 @@ export const clientWithFreshDB = async (
   name: string,
 ): Promise<[Client, string]> => {
   const parentClient = getClient();
+  console.log("running query against parent client");
   const secretQ = await parentClient.query<string>(`
     if (Database.byName('${name}').exists()) {
       Key.where(.database == '${name}').forEach(.delete())
@@ -56,6 +57,8 @@ export const clientWithFreshDB = async (
     Database.create({ name: '${name}' })
     Key.create({ role: "admin", database: '${name}' }).secret
   `);
+
+  console.log("created client with fresh db");
 
   return [
     new Client({
