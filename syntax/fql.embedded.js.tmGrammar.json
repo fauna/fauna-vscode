@@ -1,0 +1,26 @@
+{
+  "scopeName": "meta.embedded.block.fql",
+  "begin": "(fql)(`)",
+  "end": "`",
+  "name": "meta.embedded.block.fql",
+  "beginCaptures": {
+    "0": {
+      "name": "punctuation.definition.string.begin.fql"
+    },
+    "1": {
+      "name": "punctuation.definition.string.begin.fql.backtick"
+    }
+  },
+  "endCaptures": {
+    "0": {
+      "name": "punctuation.definition.string.end.fql"
+    }
+  },
+  "patterns": [
+    {
+      "include": "source.fql"
+    }
+  ]
+}
+
+
