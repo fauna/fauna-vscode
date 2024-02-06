@@ -1,26 +1,34 @@
 {
   "scopeName": "meta.embedded.block.fql",
-  "begin": "(fql)(`)",
-  "end": "`",
-  "name": "meta.embedded.block.fql",
-  "beginCaptures": {
-    "0": {
-      "name": "punctuation.definition.string.begin.fql"
-    },
-    "1": {
-      "name": "punctuation.definition.string.begin.fql.backtick"
-    }
-  },
-  "endCaptures": {
-    "0": {
-      "name": "punctuation.definition.string.end.fql"
-    }
-  },
+  "injectionSelector": "L:source",
   "patterns": [
     {
-      "include": "source.fql"
+      "include": "#fql-block"
     }
-  ]
+  ],
+  "repository": {
+    "fql-block": {
+      "begin": "(fql)(`)",
+      "name": "meta.embedded.block.fql",
+      "end": "`",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.fql"
+        },
+        "1": {
+          "name": "punctuation.definition.string.begin.fql.backtick"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.fql"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.fql"
+        }
+      ]
+    }
+  }
 }
-
-
