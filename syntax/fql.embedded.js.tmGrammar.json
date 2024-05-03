@@ -8,7 +8,7 @@
   ],
   "repository": {
     "fql-block": {
-      "begin": "(fql)(`)",
+      "begin": "(fql)\\W*(`)",
       "name": "meta.embedded.block.fql",
       "end": "`",
       "beginCaptures": {
